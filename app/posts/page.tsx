@@ -1,5 +1,13 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export default async function PostsPage() {
   const posts = await prisma.post.findMany({
@@ -10,12 +18,9 @@ export default async function PostsPage() {
     <main className="max-w-2xl mx-auto p-8">
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-3xl font-bold">Posts</h1>
-        <Link
-          href="/posts/new"
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
-        >
-          New Post
-        </Link>
+        <Button asChild>
+          <Link href="/posts/new">New Post</Link>
+        </Button>
       </div>
 
       {posts.length === 0 ? (
@@ -23,17 +28,20 @@ export default async function PostsPage() {
       ) : (
         <ul className="space-y-4">
           {posts.map((post) => (
-            <li
-              key={post.id}
-              className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition"
-            >
-              <h2 className="text-xl font-semibold">{post.title}</h2>
-              {post.content && (
-                <p className="text-gray-600 mt-2">{post.content}</p>
-              )}
-              <time className="text-sm text-gray-400 mt-2 block">
-                {post.createdAt.toLocaleDateString("ja-JP")}
-              </time>
+            <li key={post.id}>
+              <Card className="hover:shadow-md transition">
+                <CardHeader>
+                  <CardTitle>{post.title}</CardTitle>
+                  <CardDescription>
+                    {post.createdAt.toLocaleDateString("ja-JP")}
+                  </CardDescription>
+                </CardHeader>
+                {post.content && (
+                  <CardContent>
+                    <p className="text-muted-foreground">{post.content}</p>
+                  </CardContent>
+                )}
+              </Card>
             </li>
           ))}
         </ul>
