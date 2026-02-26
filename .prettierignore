@@ -1,0 +1,4 @@
+node_modules
+.next
+app/generated
+pnpm-lock.yaml
