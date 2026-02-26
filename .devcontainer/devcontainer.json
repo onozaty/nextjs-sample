@@ -4,9 +4,13 @@
   "service": "app",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   "remoteUser": "node",
+  "forwardPorts": [3000, 8080],
   "customizations": {
     "vscode": {
       "extensions": [
+        "bradlc.vscode-tailwindcss",
+        "prisma.prisma",
+        "dbaeumer.vscode-eslint"
       ]
     }
   }
