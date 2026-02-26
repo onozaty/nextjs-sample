@@ -1,5 +1,5 @@
 import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient } from "@/app/generated/prisma/client";
+import { PrismaClient } from "@/generated/prisma/client";
 
 // Next.js の開発サーバーはホットリロード時にモジュールを再読み込みするため、
 // 何も対策しないと PrismaClient のインスタンスが大量に生成され DB コネクションが枯渇する。
