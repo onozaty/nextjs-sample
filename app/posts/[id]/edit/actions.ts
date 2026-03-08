@@ -5,7 +5,8 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { postSchema, type PostFormState } from "@/app/posts/schema";
 
-export async function createPost(
+export async function updatePost(
+  id: number,
   _prevState: PostFormState,
   formData: FormData,
 ): Promise<PostFormState> {
@@ -23,7 +24,8 @@ export async function createPost(
     };
   }
 
-  await prisma.post.create({
+  await prisma.post.update({
+    where: { id },
     data: {
       title: result.data.title,
       content: result.data.content || null,

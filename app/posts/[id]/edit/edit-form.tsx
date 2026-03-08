@@ -6,19 +6,19 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { createPost } from "./actions";
-import { type PostFormState } from "@/app/posts/schema";
+import { updatePost } from "./actions";
 
-const initialState: PostFormState = {
-  errors: {},
-  values: { title: "", content: "" },
+type Props = {
+  id: number;
+  initialValues: { title: string; content: string };
 };
 
-export function PostForm() {
-  const [state, formAction, isPending] = useActionState(
-    createPost,
-    initialState,
-  );
+export function EditForm({ id, initialValues }: Props) {
+  const boundAction = updatePost.bind(null, id);
+  const [state, formAction, isPending] = useActionState(boundAction, {
+    errors: {},
+    values: initialValues,
+  });
 
   return (
     <form action={formAction} className="space-y-6">
@@ -60,7 +60,7 @@ export function PostForm() {
 
       <div className="flex gap-4">
         <Button type="submit" disabled={isPending}>
-          {isPending ? "Creating..." : "Create"}
+          {isPending ? "Saving..." : "Save"}
         </Button>
         <Button variant="outline" asChild>
           <Link href="/posts">Cancel</Link>

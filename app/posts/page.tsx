@@ -31,10 +31,17 @@ export default async function PostsPage() {
             <li key={post.id}>
               <Card className="hover:shadow-md transition">
                 <CardHeader>
-                  <CardTitle>{post.title}</CardTitle>
-                  <CardDescription>
-                    {post.createdAt.toLocaleDateString("ja-JP")}
-                  </CardDescription>
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <CardTitle>{post.title}</CardTitle>
+                      <CardDescription>
+                        {post.createdAt.toLocaleDateString("ja-JP")}
+                      </CardDescription>
+                    </div>
+                    <Button variant="ghost" size="sm" asChild>
+                      <Link href={`/posts/${post.id}/edit`}>Edit</Link>
+                    </Button>
+                  </div>
                 </CardHeader>
                 {post.content && (
                   <CardContent>
