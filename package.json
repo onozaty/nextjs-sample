@@ -11,7 +11,10 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "check": "pnpm typecheck && pnpm lint && pnpm format",
-    "db:seed": "tsx --env-file=.env prisma/seed.ts"
+    "db:migrate": "prisma-schema-fixer && prisma migrate dev && prisma generate && pnpm run db:deploy",
+    "db:reset": "prisma migrate reset && pnpm run db:seed",
+    "db:deploy": "prisma migrate deploy",
+    "db:seed": "prisma db seed"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.4.1",
@@ -29,6 +32,7 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@onozaty/prisma-schema-fixer": "^1.2.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/pg": "^8.16.0",
